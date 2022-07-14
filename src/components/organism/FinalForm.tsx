@@ -7,6 +7,7 @@ import { ContactValues } from "../../services/contact.type";
 import FormInputGroup from "./FormInputGroup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import colors from "../../constants/colors";
+import { sendResultToUser, writeDataToSheet } from "../../services/results";
 
 const Container = styled(Box)`
   margin-top: 20px;
@@ -55,7 +56,24 @@ const FinalForm = () => {
   );
 
   const onSubmit = React.useCallback(async (data: ContactValues) => {
-    console.log("NICE", data);
+    await sendResultToUser({
+      receiver: data.email,
+      email: "ken@techfox.io",
+      subject: "KẾT QUẢ TRẮC NGHIỆM TÍNH CÁCH",
+      name: "Mạnh Hùng",
+      message: "TỔNG KẾT CỦA BẠN: E N T J",
+    });
+
+    await writeDataToSheet({
+      fullName: data.fullName,
+      dob: data.dob,
+      phoneNumber: data.phoneNumber,
+      zalo: data.zalo,
+      email: data.email,
+      address: data.address,
+      dream: data.dream,
+      personType: "J Q K A",
+    });
   }, []);
 
   const renderTitle = useCallback(() => {

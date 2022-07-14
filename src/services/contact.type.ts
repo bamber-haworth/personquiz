@@ -6,4 +6,5 @@ export type ContactValues = {
   email: string;
   address: string;
   dream: string;
+  personType?: string;
 };

@@ -28,7 +28,7 @@ const PersonType = ({
   const renderExType = useCallback(() => {
     return leftTypes.map((i, key) => {
       return (
-        <div>
+        <div key={key}>
           <Questionaire description={i.description} index={key} />
         </div>
       );
@@ -38,7 +38,7 @@ const PersonType = ({
   const renderInType = useCallback(() => {
     return rightTypes.map((i, key) => {
       return (
-        <div>
+        <div key={key}>
           <Questionaire description={i.description} index={key} />
         </div>
       );
