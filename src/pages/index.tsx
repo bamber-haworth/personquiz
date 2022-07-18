@@ -21,6 +21,10 @@ import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import StepLabel from "@mui/material/StepLabel";
+import EIScreen from "../components/organism/EIScreen";
+import ISScreen from "../components/organism/ISScreen";
+import TFScreen from "../components/organism/TFScreen";
+import JPScreen from "../components/organism/JPScreen";
 
 const steps = [
   "Bạn là E hay I?",
@@ -35,6 +39,8 @@ const Home: NextPage = () => {
   const [completed, setCompleted] = useState<{
     [k: number]: boolean;
   }>({});
+
+  const [finalResult, setFinalResult] = useState("");
 
   const totalSteps = () => {
     return steps.length;
@@ -82,7 +88,7 @@ const Home: NextPage = () => {
     setCompleted({});
   };
 
-  const renderSteppers = useCallback(() => {
+  const renderSteppers = () => {
     return (
       <Box>
         <Stepper activeStep={activeStep}>
@@ -137,44 +143,52 @@ const Home: NextPage = () => {
         </Box>
       </Box>
     );
-  }, [activeStep]);
+  };
+
+  console.log("RESULT", finalResult);
 
   const renderPersonTypes = useCallback(() => {
     switch (activeStep) {
       case 0:
         return (
-          <PersonType
+          <EIScreen
             leftTitle="Extraversion (Hướng ngoại)"
             leftTypes={extroverts}
             rightTitle="Introversion (Hướng nội)"
             rightTypes={introverts}
+            generalTypes="EI"
+            setFinalResult={setFinalResult}
           />
         );
       case 1:
         return (
-          <PersonType
+          <ISScreen
             leftTitle="Intuition(Trực giác)"
             leftTypes={intuitions}
             rightTitle="Sensing(Cảm nhận)"
             rightTypes={sensings}
+            generalTypes="IS"
+            setFinalResult={setFinalResult}
           />
         );
       case 2:
         return (
-          <PersonType
+          <TFScreen
             leftTitle="Thinking(Suy nghĩ)"
             leftTypes={thinkings}
             rightTitle="Feeling(Cảm giác)"
             rightTypes={feelings}
+            generalTypes="TF"
           />
         );
       case 3:
         return (
-          <PersonType
+          <JPScreen
             leftTitle="Judging(Đánh giá)"
             leftTypes={judgings}
             rightTitle="Perceiving(Nhận thức)"
             rightTypes={perceivings}
+            generalTypes="JP"
           />
         );
       case 4:

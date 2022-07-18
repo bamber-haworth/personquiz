@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { Box } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
-
-import styles from "../../../styles/Home.module.css";
 import Questionaire from "../molecules/Questionaire";
+import styles from "../../../styles/Home.module.css";
+import { Box } from "@mui/material";
+import { handleData } from "../../utils/helpers";
 
 interface IPersonType {
   leftTypes: {
@@ -21,57 +21,53 @@ interface IPersonType {
   generalTypes?: string;
 }
 
-const PersonType = ({
-  leftTitle,
-  rightTitle,
+const TFScreen = ({
   leftTypes,
+  rightTitle,
   rightTypes,
+  leftTitle,
   generalTypes,
 }: IPersonType) => {
   const [leftArr, setLeftArr] = useState({});
   const [rightArr, setRightArr] = useState({});
   const [leftValues, setLeftValues] = useState({});
   const [rightValues, setRightValues] = useState({});
-  const [finalResult, setFinalResult] = useState("");
-
-  const handleValues = useCallback((val: any) => {
-    const data = Object.entries(val)
-      .map((e, i) => {
-        return e[1];
-      })
-      .reduce((p = [], c) => {
-        if (c === "yes") {
-          p.push(c);
-        }
-        return p;
-      }, []);
-    console.log("MEO", data);
-    return data;
-  }, []);
 
   useEffect(() => {
-    const data = Object.entries(leftValues)
-      .map((e, i) => {
-        return e[1];
-      })
-      .reduce((p = [], c) => {
-        if (c === "yes") {
-          p.push(c);
-        }
-        return p;
-      }, []);
+    const leftResult = handleData(leftValues);
+    const rightResult = handleData(rightValues);
 
-    if (data.length) {
+    if (leftResult?.length) {
       setLeftArr((prev: any) => {
         return {
           ...prev,
-          [generalTypes]: data,
+          [generalTypes as string]: leftResult,
         };
       });
     }
-  }, [leftValues, generalTypes]);
+    if (rightResult?.length) {
+      setRightArr((prev: any) => {
+        return {
+          ...prev,
+          [generalTypes as string]: rightResult,
+        };
+      });
+    }
+  }, [leftValues, generalTypes, rightValues]);
 
-  console.log("LEFT", leftValues);
+  const handleTFResult = useCallback(() => {
+    const TTypeResult = leftArr?.[generalTypes]?.length;
+    const FTypeResult = rightArr?.[generalTypes]?.length;
+    if (TTypeResult > FTypeResult) {
+      return "T";
+    } else {
+      return "F";
+    }
+  }, [rightArr, leftArr, generalTypes]);
+
+  useEffect(() => {
+    const result = handleTFResult();
+  }, [handleTFResult]);
 
   const renderLeftType = useCallback(() => {
     return leftTypes.map((i, key) => {
@@ -122,4 +118,4 @@ const PersonType = ({
   );
 };
 
-export default PersonType;
+export default TFScreen;

@@ -1,11 +1,10 @@
+// @ts-nocheck
 import styled from "@emotion/styled";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import styles from "../../../styles/Home.module.css";
 import { ContactValues } from "../../services/contact.type";
 import FormInputGroup from "./FormInputGroup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import colors from "../../constants/colors";
 import { sendResultToUser, writeDataToSheet } from "../../services/results";
 
@@ -87,7 +86,7 @@ const FinalForm = () => {
     );
   }, []);
 
-  const renderForm = useCallback(() => {
+  const renderForm = () => {
     return (
       <Box mt={3} display={"flex"} flexDirection={"column"} width={"100%"}>
         <FormInputGroup
@@ -174,7 +173,7 @@ const FinalForm = () => {
         </Box>
       </Box>
     );
-  }, []);
+  };
 
   return (
     <Container>
