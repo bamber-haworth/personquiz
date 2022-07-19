@@ -55,7 +55,7 @@ export default async function handler(
     })
     res.json({ message: 'data has been written to your spreadsheet', status: 'success' })
   } catch (error) {
-    // console.log('ERR', error.response.body.errors)
+    console.log('ERR', error.response.body.errors)
     res.status(500).json({ error: 'Error writing data to spreadsheet' })
   }
 }
