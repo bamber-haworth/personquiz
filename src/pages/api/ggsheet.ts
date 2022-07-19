@@ -1,6 +1,7 @@
 import { google } from 'googleapis'
 import dayjs  from 'dayjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
+const ggCredentials = process.env.NEXT_PUBLIC_GOOGLE_APPLICATION_CREDENTIALS;
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,7 +19,7 @@ export default async function handler(
     personType
   } = req.body
   const auth = new google.auth.GoogleAuth({
-      keyFile: 'credentials.json',
+      keyFile: ggCredentials,
       scopes: 'https://www.googleapis.com/auth/spreadsheets'
   })
   const today = dayjs().format('DD/MM/YYYY HH:mm')
