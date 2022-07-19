@@ -169,6 +169,7 @@ const FinalForm = () => {
           type={address}
           name={address}
           id={address}
+          resetValidate={() => _resetValidation(address)}
           errMessage={validate?.address?.message}
           placeText={"Địa chỉ*"}
           placeholder={"Điền câu trả lời"}
