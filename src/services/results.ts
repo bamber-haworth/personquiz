@@ -29,7 +29,6 @@ export const writeDataToSheet =async (data: ContactValues) => {
       }
     })
 
-    console.log('RES', response)
   } catch (error) {
     console.log('Write data to Spreadsheet Error', error)
   }

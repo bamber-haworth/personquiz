@@ -34,6 +34,9 @@ const DefaultTextInput = styled(Input)`
 
 const FormHelperTextStyled = styled(FormHelperText)`
   margin-left: 0;
+  margin-top: -10px;
+  margin-bottom: 5px;
+  color: ${colors.alertRed};
 `;
 
 const PlaceText = styled(Typography)`
@@ -65,7 +68,7 @@ const TextInput: React.FC<TextInputProps> = ({
         style={style}
         {...registerProps}
       />
-      {errMessage && renderErrMessage}
+      <div>{errMessage && renderErrMessage}</div>
     </FormControl>
   );
 };

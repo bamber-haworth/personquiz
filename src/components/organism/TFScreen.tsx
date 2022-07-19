@@ -4,6 +4,7 @@ import Questionaire from "../molecules/Questionaire";
 import styles from "../../../styles/Home.module.css";
 import { Box } from "@mui/material";
 import { handleData } from "../../utils/helpers";
+import useFeedback from "../../hooks/useFeedbacks";
 
 interface IPersonType {
   leftTypes: {
@@ -33,40 +34,64 @@ const TFScreen = ({
   const [leftValues, setLeftValues] = useState({});
   const [rightValues, setRightValues] = useState({});
 
+  const { getFeedbackResult } = useFeedback();
+
   useEffect(() => {
     const leftResult = handleData(leftValues);
     const rightResult = handleData(rightValues);
 
-    if (leftResult?.length) {
-      setLeftArr((prev: any) => {
-        return {
-          ...prev,
-          [generalTypes as string]: leftResult,
-        };
-      });
+    const leftLength = Object.entries(leftValues).map((e, i) => {
+      return e[1];
+    }).length;
+    const rightLength = Object.entries(rightValues).map((e, i) => {
+      return e[1];
+    }).length;
+
+    if (
+      leftLength - 1 === leftTypes.length &&
+      rightLength - 1 === rightTypes.length
+    ) {
+      if (leftResult?.length) {
+        setLeftArr((prev: any) => {
+          return {
+            ...prev,
+            [generalTypes as string]: leftResult,
+          };
+        });
+      }
+      if (rightResult?.length) {
+        setRightArr((prev: any) => {
+          return {
+            ...prev,
+            [generalTypes as string]: rightResult,
+          };
+        });
+      }
     }
-    if (rightResult?.length) {
-      setRightArr((prev: any) => {
-        return {
-          ...prev,
-          [generalTypes as string]: rightResult,
-        };
-      });
-    }
-  }, [leftValues, generalTypes, rightValues]);
+  }, [
+    leftValues,
+    generalTypes,
+    rightValues,
+    leftTypes.length,
+    rightTypes.length,
+  ]);
 
   const handleTFResult = useCallback(() => {
-    const TTypeResult = leftArr?.[generalTypes]?.length;
-    const FTypeResult = rightArr?.[generalTypes]?.length;
+    const TTypeResult = leftArr?.[generalTypes]?.length || 0;
+    const FTypeResult = rightArr?.[generalTypes]?.length || 0;
+
     if (TTypeResult > FTypeResult) {
       return "T";
-    } else {
+    } else if (TTypeResult < FTypeResult) {
       return "F";
     }
   }, [rightArr, leftArr, generalTypes]);
 
   useEffect(() => {
     const result = handleTFResult();
+    if (result?.length) {
+      getFeedbackResult(result);
+    }
   }, [handleTFResult]);
 
   const renderLeftType = useCallback(() => {

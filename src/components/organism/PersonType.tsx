@@ -45,7 +45,6 @@ const PersonType = ({
         }
         return p;
       }, []);
-    console.log("MEO", data);
     return data;
   }, []);
 
@@ -70,8 +69,6 @@ const PersonType = ({
       });
     }
   }, [leftValues, generalTypes]);
-
-  console.log("LEFT", leftValues);
 
   const renderLeftType = useCallback(() => {
     return leftTypes.map((i, key) => {

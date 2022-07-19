@@ -1,12 +1,16 @@
 // @ts-nocheck
 import styled from "@emotion/styled";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ContactValues } from "../../services/contact.type";
 import FormInputGroup from "./FormInputGroup";
 import colors from "../../constants/colors";
 import { sendResultToUser, writeDataToSheet } from "../../services/results";
+import useFeedback from "../../hooks/useFeedbacks";
+import useThankyou from "../../hooks/useThankyou";
+import { contactSchema } from "../../services/contactSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Container = styled(Box)`
   margin-top: 20px;
@@ -22,12 +26,19 @@ const dream = "dream";
 
 const FinalForm = () => {
   const [validate, setValidate] = useState<any>({});
+  const { feedbackResults } = useFeedback();
+  const { navigateThankyou } = useThankyou();
+
+  const [isLoading, setLoading] = useState(false);
+
+  console.log("RESULT", feedbackResults.toString().substring(1));
+
   const {
     handleSubmit,
     control,
     formState: {},
   } = useForm<ContactValues>({
-    // resolver: yupResolver(authSchema),
+    resolver: yupResolver(contactSchema),
     defaultValues: {
       fullName: undefined,
       dob: undefined,
@@ -54,26 +65,38 @@ const FinalForm = () => {
     [setValidate]
   );
 
-  const onSubmit = React.useCallback(async (data: ContactValues) => {
-    await sendResultToUser({
-      receiver: data.email,
-      email: "ken@techfox.io",
-      subject: "KẾT QUẢ TRẮC NGHIỆM TÍNH CÁCH",
-      name: "Mạnh Hùng",
-      message: "TỔNG KẾT CỦA BẠN: E N T J",
-    });
+  const onSubmit = React.useCallback(
+    async (data: ContactValues) => {
+      const fb = feedbackResults.toString().substring(1);
+      try {
+        setLoading(true);
+        await sendResultToUser({
+          receiver: data.email,
+          email: "ken@techfox.io",
+          subject: "KẾT QUẢ TRẮC NGHIỆM TÍNH CÁCH",
+          name: "Mạnh Hùng",
+          message: `TỔNG KẾT CỦA BẠN: ${fb}`,
+        });
 
-    await writeDataToSheet({
-      fullName: data.fullName,
-      dob: data.dob,
-      phoneNumber: data.phoneNumber,
-      zalo: data.zalo,
-      email: data.email,
-      address: data.address,
-      dream: data.dream,
-      personType: "J Q K A",
-    });
-  }, []);
+        await writeDataToSheet({
+          fullName: data.fullName,
+          dob: data.dob,
+          phoneNumber: data.phoneNumber,
+          zalo: data.zalo,
+          email: data.email,
+          address: data.address,
+          dream: data.dream,
+          personType: fb,
+        });
+      } catch (error) {
+        console.log("SUBMIT ERR", error);
+      } finally {
+        setLoading(false);
+        navigateThankyou(true);
+      }
+    },
+    [feedbackResults]
+  );
 
   const renderTitle = useCallback(() => {
     return (
@@ -148,9 +171,11 @@ const FinalForm = () => {
           type={address}
           name={address}
           id={address}
+          errMessage={validate?.address?.message}
           placeText={"Địa chỉ*"}
           placeholder={"Điền câu trả lời"}
         />
+
         <FormInputGroup
           control={control}
           type={dream}
@@ -163,14 +188,18 @@ const FinalForm = () => {
           Lưu ý: các ô đánh dấu * là bắt buộc phải điền
         </Typography>
 
-        <Box mt={2}>
-          <Button
-            variant="contained"
-            onClick={handleSubmit(onSubmit, _validationHandler)}
-          >
-            Nhận kết quả
-          </Button>
-        </Box>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <Box mt={2}>
+            <Button
+              variant="contained"
+              onClick={handleSubmit(onSubmit, _validationHandler)}
+            >
+              Nhận kết quả
+            </Button>
+          </Box>
+        )}
       </Box>
     );
   };

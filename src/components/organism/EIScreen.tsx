@@ -4,6 +4,7 @@ import Questionaire from "../molecules/Questionaire";
 import styles from "../../../styles/Home.module.css";
 import { Box } from "@mui/material";
 import { handleData } from "../../utils/helpers";
+import useFeedback from "../../hooks/useFeedbacks";
 
 interface IPersonType {
   leftTypes: {
@@ -34,6 +35,8 @@ const EIScreen = ({
   const [rightArr, setRightArr] = useState({});
   const [leftValues, setLeftValues] = useState({});
   const [rightValues, setRightValues] = useState({});
+
+  const { getFeedbackResult } = useFeedback();
 
   useEffect(() => {
     const leftResult = handleData(leftValues);
@@ -81,7 +84,7 @@ const EIScreen = ({
 
     if (ETypeResult > ITypeResult) {
       return "E";
-    } else {
+    } else if (ETypeResult < ITypeResult) {
       return "I";
     }
   }, [rightArr, leftArr, generalTypes]);
@@ -90,9 +93,9 @@ const EIScreen = ({
     const result = handleEIResult();
 
     if (result?.length) {
-      setFinalResult(result);
+      getFeedbackResult(result);
     }
-  }, [handleEIResult, setFinalResult]);
+  }, [handleEIResult]);
 
   const renderLeftType = useCallback(() => {
     return leftTypes.map((i, key) => {
