@@ -31,8 +31,6 @@ const FinalForm = () => {
 
   const [isLoading, setLoading] = useState(false);
 
-  console.log("RESULT", feedbackResults.toString().substring(1));
-
   const {
     handleSubmit,
     control,
