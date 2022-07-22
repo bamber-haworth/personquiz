@@ -100,38 +100,6 @@ const Home: NextPage = () => {
             );
           })}
         </Stepper>
-        <Box>
-          {activeStep === steps.length ? (
-            <React.Fragment>
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                All steps completed - you&apos;re finished
-              </Typography>
-              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleReset}>Reset</Button>
-              </Box>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <Button
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1, mt: 1 }}
-                >
-                  <Typography>Back</Typography>
-                </Button>
-                <Box sx={{ flex: "1 1 auto" }} />
-                {activeStep === steps.length - 1 ? null : (
-                  <Button onClick={handleNext}>
-                    <Typography>Next</Typography>
-                  </Button>
-                )}
-              </Box>
-            </React.Fragment>
-          )}
-        </Box>
       </Box>
     );
   };
@@ -212,6 +180,30 @@ const Home: NextPage = () => {
           <div className={styles.main}>
             {renderSteppers()}
             {renderPersonTypes()}
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                justifyContent: "space-between",
+              }}
+              mb={10}
+            >
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+              >
+                <Typography>Back</Typography>
+              </Button>
+              <Box sx={{ flex: "1 1 auto" }} />
+              {activeStep === steps.length - 1 ? null : (
+                <Button onClick={handleNext}>
+                  <Typography>Next</Typography>
+                </Button>
+              )}
+            </Box>
           </div>
         )}
       </main>

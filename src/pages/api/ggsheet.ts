@@ -3,7 +3,6 @@ import dayjs  from 'dayjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const clientEmail = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL;
-const privateKey = process.env.NEXT_PUBLIC_GOOGLE_PRIVATE_KEY;
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 export default async function handler(
@@ -59,7 +58,8 @@ export default async function handler(
         values: [
           [fullName, dob, phoneNumber, email, zalo, address, dream, personType, today]
         ]
-      }
+      },
+
       // valueInputOption: "USER_ENTERED",
       //   resource: {
       //   values: [
