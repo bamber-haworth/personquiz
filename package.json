@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "HTTP_PROXY=https://personquiz.vercel.app/ next build",
-    "start": "HTTP_PROXY=https://personquiz.vercel.app/ next start",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
