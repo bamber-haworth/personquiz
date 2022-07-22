@@ -49,17 +49,23 @@ export default async function handler(
   // })
   try {
     //Write row(s) to spreadsheet
-    //@ts-ignore
+
     googleSheets.spreadsheets.values.append({
       auth,
       spreadsheetId,
       range: "Sheet1!A:I",
       valueInputOption: "USER_ENTERED",
-        resource: {
+      requestBody: {
         values: [
           [fullName, dob, phoneNumber, email, zalo, address, dream, personType, today]
         ]
       }
+      // valueInputOption: "USER_ENTERED",
+      //   resource: {
+      //   values: [
+      //     [fullName, dob, phoneNumber, email, zalo, address, dream, personType, today]
+      //   ]
+      // }
     })
     res.json({ message: 'data has been written to your spreadsheet', status: 'success' })
   } catch (error) {
