@@ -60,12 +60,6 @@ export default async function handler(
         ]
       },
 
-      // valueInputOption: "USER_ENTERED",
-      //   resource: {
-      //   values: [
-      //     [fullName, dob, phoneNumber, email, zalo, address, dream, personType, today]
-      //   ]
-      // }
     })
     res.json({ message: 'data has been written to your spreadsheet', status: 'success' })
   } catch (error) {

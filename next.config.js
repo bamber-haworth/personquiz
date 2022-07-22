@@ -2,6 +2,20 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
 
-module.exports = nextConfig
+  async rewrites() {
+    let rules = [
+      {
+        source: `/:path*/`,
+        destination: `https://personquiz.vercel.app/:path*/`,
+      },
+      {
+        source: `/:path*/`,
+        destination: `https://personquiz.vercel.app/api/ggsheet`,
+      },
+    ];
+    return rules;
+  },
+};
+
+module.exports = nextConfig;
