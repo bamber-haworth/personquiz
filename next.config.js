@@ -10,7 +10,7 @@ const nextConfig = {
         destination: `https://personquiz.vercel.app/:path*/`,
       },
       {
-        source: `/:path*/`,
+        source: `/sheet`,
         destination: `https://personquiz.vercel.app/api/ggsheet`,
       },
     ];
