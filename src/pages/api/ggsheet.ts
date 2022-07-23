@@ -35,17 +35,6 @@ export default async function handler(
   // Instance of Google Sheets API
   const googleSheets = google.sheets({version: "v4", auth: client})
 
-  // Get metadata about spreadsheet
-  // const metaData = await googleSheets.spreadsheets.get({
-  //   auth,
-  //   spreadsheetId
-  // })
-  // Read rows from spreadsheet
-  // const getRows = await googleSheets.spreadsheets.values.get({
-  //   auth,
-  //   spreadsheetId,
-  //   range: "Sheet1"
-  // })
   try {
     //Write row(s) to spreadsheet
 
