@@ -68,13 +68,13 @@ const FinalForm = () => {
       const fb = feedbackResults.toString().substring(1);
       try {
         setLoading(true);
-        // await sendResultToUser({
-        //   receiver: data.email,
-        //   email: "ken@techfox.io",
-        //   subject: "KẾT QUẢ TRẮC NGHIỆM TÍNH CÁCH",
-        //   name: "Mạnh Hùng",
-        //   message: `TỔNG KẾT CỦA BẠN: ${fb}`,
-        // });
+        await sendResultToUser({
+          receiver: data.email,
+          email: "ken@techfox.io",
+          subject: "KẾT QUẢ TRẮC NGHIỆM TÍNH CÁCH",
+          name: "Mạnh Hùng",
+          message: `TỔNG KẾT CỦA BẠN: ${fb}`,
+        });
 
         await writeDataToSheet({
           fullName: data.fullName,
