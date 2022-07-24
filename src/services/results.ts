@@ -18,15 +18,15 @@ export const sendResultToUser = async (data: ResultInformation) => {
   }
 }
 
-export const writeDataToSheet =async (data: ContactValues) => {
+export const writeDataToSheet = async (data: ContactValues) => {
   try {
-    const response = await axios({
+    await fetch('/api/ggsheet' ,{
       method: 'POST',
-      url: '/api/ggsheet',
-      data: JSON.stringify(data),
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify(data),
     })
 
   } catch (error) {
