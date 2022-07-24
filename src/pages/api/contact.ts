@@ -17,7 +17,7 @@ export default async function contact(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const r = await sgMail.send(msg);
-        // console.log('MESS', r)
+        console.log('MESS', r)
 
     res.json({ message: `Email has been sent`, status: 'success' })
   } catch (error) {
