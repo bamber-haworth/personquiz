@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import React, { useCallback, useState } from "react";
 import styles from "../../styles/Home.module.css";
-import PersonType from "../components/organism/PersonType";
 import FinalForm from "../components/organism/FinalForm";
 import {
   extroverts,
@@ -17,7 +16,6 @@ import {
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
-import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import StepLabel from "@mui/material/StepLabel";

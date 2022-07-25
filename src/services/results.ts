@@ -12,7 +12,6 @@ export const sendResultToUser = async (data: ResultInformation) => {
       'Content-Type': 'application/json'
     }
   })
-  console.log('RES', response)
   } catch (error) {
     console.log('Send Result to user Error', error)
   }

@@ -36,7 +36,7 @@ const EIScreen = ({
   const [leftValues, setLeftValues] = useState({});
   const [rightValues, setRightValues] = useState({});
 
-  const { getFeedbackResult } = useFeedback();
+  const { getFeedbackResult, feedbackResults } = useFeedback();
 
   useEffect(() => {
     const leftResult = handleData(leftValues);
