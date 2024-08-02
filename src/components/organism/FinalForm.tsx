@@ -100,8 +100,7 @@ const FinalForm = () => {
     return (
       <Box>
         <Typography>
-          Các bạn vui lòng điền thông tin và gửi đi. Hệ thống sẽ gửi lại kết quả
-          tới email của các bạn. <br /> Xin chân thành cảm ơn!
+          Text here
         </Typography>
       </Box>
     );
@@ -118,8 +117,8 @@ const FinalForm = () => {
           resetValidate={() => _resetValidation(fullName)}
           name={fullName}
           id={fullName}
-          placeText={"Họ và tên*"}
-          placeholder={"Điền câu trả lời"}
+          placeText={"Full name*"}
+          placeholder={"name"}
         />
         <FormInputGroup
           control={control}
@@ -129,7 +128,7 @@ const FinalForm = () => {
           resetValidate={() => _resetValidation(dob)}
           name={dob}
           id={dob}
-          placeText={"Ngày, tháng, năm, sinh*"}
+          placeText={"dob"}
         />
         <FormInputGroup
           control={control}
@@ -139,8 +138,8 @@ const FinalForm = () => {
           resetValidate={() => _resetValidation(phoneNumber)}
           name={phoneNumber}
           id={phoneNumber}
-          placeText={"Số điện thoại*"}
-          placeholder={"Điền câu trả lời"}
+          placeText={"number"}
+          placeholder={"number"}
         />
         <FormInputGroup
           control={control}
@@ -151,17 +150,7 @@ const FinalForm = () => {
           name={email}
           id={email}
           placeText={"Email*"}
-          placeholder={"Điền câu trả lời"}
-        />
-        <FormInputGroup
-          control={control}
-          type={zalo}
-          errMessage={validate?.zalo?.message}
-          resetValidate={() => _resetValidation(zalo)}
-          name={zalo}
-          id={zalo}
-          placeText={"Zalo"}
-          placeholder={"Điền câu trả lời"}
+          placeholder={"email"}
         />
         <FormInputGroup
           control={control}
@@ -171,20 +160,11 @@ const FinalForm = () => {
           id={address}
           resetValidate={() => _resetValidation(address)}
           errMessage={validate?.address?.message}
-          placeText={"Địa chỉ*"}
-          placeholder={"Điền câu trả lời"}
-        />
-
-        <FormInputGroup
-          control={control}
-          type={dream}
-          name={dream}
-          id={dream}
-          placeText={"Nguyện vọng Trường và Ngành ở Việt Nam?"}
-          placeholder={"Điền câu trả lời"}
+          placeText={"validate"}
+          placeholder={"validate"}
         />
         <Typography color={colors.alertRed}>
-          Lưu ý: các ô đánh dấu * là bắt buộc phải điền
+          warning
         </Typography>
 
         {isLoading ? (
@@ -195,7 +175,7 @@ const FinalForm = () => {
               variant="contained"
               onClick={handleSubmit(onSubmit, _validationHandler)}
             >
-              Nhận kết quả
+              Submit
             </Button>
           </Box>
         )}

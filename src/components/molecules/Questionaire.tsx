@@ -53,8 +53,8 @@ const Questionaire = ({
           onChange={handleChange}
         >
           <Box mt={1} mb={1}>
-            <FormControlLabel value="yes" control={<Radio />} label="Đúng" />
-            <FormControlLabel value="no" control={<Radio />} label="Sai" />
+            <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+            <FormControlLabel value="no" control={<Radio />} label="No" />
           </Box>
         </RadioGroup>
       </FormControl>

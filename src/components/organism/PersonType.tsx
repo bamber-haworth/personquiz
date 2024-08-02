@@ -11,27 +11,17 @@ interface IPersonType {
     description: string;
   }[];
 
-  rightTypes: {
-    id: number;
-    description: string;
-  }[];
-
   leftTitle: string;
-  rightTitle: string;
   generalTypes?: string;
 }
 
 const PersonType = ({
   leftTitle,
-  rightTitle,
   leftTypes,
-  rightTypes,
   generalTypes,
 }: IPersonType) => {
   const [leftArr, setLeftArr] = useState({});
-  const [rightArr, setRightArr] = useState({});
   const [leftValues, setLeftValues] = useState({});
-  const [rightValues, setRightValues] = useState({});
   const [finalResult, setFinalResult] = useState("");
 
   const handleValues = useCallback((val: any) => {
@@ -86,33 +76,12 @@ const PersonType = ({
     });
   }, [leftTypes, generalTypes, leftValues]);
 
-  const renderRightType = useCallback(() => {
-    return rightTypes.map((i, key) => {
-      return (
-        <div key={key}>
-          <Questionaire
-            description={i.description}
-            index={key}
-            setValues={setRightValues}
-            generalTypes={generalTypes}
-            values={rightValues}
-          />
-        </div>
-      );
-    });
-  }, [rightTypes, rightValues, generalTypes]);
-
   return (
     <Box>
       <div className={styles.grid}>
         <div className={styles.card}>
           <h2>{leftTitle}</h2>
           {renderLeftType()}
-        </div>
-
-        <div className={styles.card}>
-          <h2>{rightTitle}</h2>
-          {renderRightType()}
         </div>
       </div>
     </Box>

@@ -4,14 +4,8 @@ import React, { useCallback, useState } from "react";
 import styles from "../../styles/Home.module.css";
 import FinalForm from "../components/organism/FinalForm";
 import {
-  extroverts,
-  feelings,
-  introverts,
-  intuitions,
-  judgings,
-  perceivings,
-  sensings,
-  thinkings,
+  aboutYou,
+  aboutSupport,
 } from "../services/mockData";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -21,16 +15,12 @@ import Typography from "@mui/material/Typography";
 import StepLabel from "@mui/material/StepLabel";
 import EIScreen from "../components/organism/EIScreen";
 import ISScreen from "../components/organism/ISScreen";
-import TFScreen from "../components/organism/TFScreen";
-import JPScreen from "../components/organism/JPScreen";
 import useThankyou from "../hooks/useThankyou";
 
 const steps = [
-  "Bạn là E hay I?",
-  "Bạn là N hay S?",
-  "Bạn là T hay F?",
-  "Bạn là J hay P?",
-  "Nhận kết quả",
+  "About You",
+  "Support Needed",
+  "Results",
 ];
 
 const Home: NextPage = () => {
@@ -107,10 +97,8 @@ const Home: NextPage = () => {
       case 0:
         return (
           <EIScreen
-            leftTitle="Extraversion (Hướng ngoại)"
-            leftTypes={extroverts}
-            rightTitle="Introversion (Hướng nội)"
-            rightTypes={introverts}
+            leftTitle="Tell us about you"
+            leftTypes={aboutYou}
             generalTypes="EI"
             setFinalResult={setFinalResult}
           />
@@ -118,35 +106,13 @@ const Home: NextPage = () => {
       case 1:
         return (
           <ISScreen
-            leftTitle="Intuition(Trực giác)"
-            leftTypes={intuitions}
-            rightTitle="Sensing(Cảm nhận)"
-            rightTypes={sensings}
+            leftTitle="Tell us about what support you need"
+            leftTypes={aboutSupport}
             generalTypes="IS"
             setFinalResult={setFinalResult}
           />
         );
       case 2:
-        return (
-          <TFScreen
-            leftTitle="Thinking(Suy nghĩ)"
-            leftTypes={thinkings}
-            rightTitle="Feeling(Cảm giác)"
-            rightTypes={feelings}
-            generalTypes="TF"
-          />
-        );
-      case 3:
-        return (
-          <JPScreen
-            leftTitle="Judging(Đánh giá)"
-            leftTypes={judgings}
-            rightTitle="Perceiving(Nhận thức)"
-            rightTypes={perceivings}
-            generalTypes="JP"
-          />
-        );
-      case 4:
         return <FinalForm />;
     }
   }, [activeStep]);
@@ -156,8 +122,7 @@ const Home: NextPage = () => {
   const renderThankyouPage = () => {
     return (
       <div className={styles.thankyou}>
-        Cảm ơn bạn đã tham gia khảo sát trắc nghiệm tính cách. Vui lòng check
-        email để nhận kết quả
+        Thanks for completing the quiz, hopefully there is something here that can help you.
       </div>
     );
   };
@@ -165,13 +130,13 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Trắc nghiệm tính cách</title>
-        <meta name="description" content="Kiểm tra tính cách chính xác" />
+        <title>London Trans Support Finder</title>
+        <meta name="description" content="A quiz to help direct trans people to the most appropriate/accessible support." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className={styles.title}>Trắc nghiệm tính cách</h1>
+        <h1 className={styles.title}>London Trans Support Finder</h1>
         {isThankyou ? (
           renderThankyouPage()
         ) : (
